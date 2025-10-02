@@ -15,7 +15,6 @@ import {
   UserCircleIcon,
 } from "../icons/index.js";
 import { useSidebar } from "../context/SidebarContext";
-import SidebarWidget from "./SidebarWidget";
 
 //aside menu icon,name and sub-(icon,name)
 const navItems = [
@@ -358,7 +357,6 @@ const AppSidebar = () => {
             </div>
           </div>
         </nav>
-        {isExpanded || isHovered || isMobileOpen ? <SidebarWidget /> : null}
       </div>
     </aside>
   );
