@@ -1,21 +1,22 @@
 import { useState } from "react";
-import { toast } from 'react-toastify';
 import { useNavigate, Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext.jsx";
-import LoginImg from "../assets/Login.png";
+import { toast } from "react-toastify";
+import { useAuth } from "../../context/AuthContext.jsx";
+import LoginImg from "../../assets/Login.png";
 
-const Login = () => {
-  const { login } = useAuth();
-  const navigate = useNavigate();
+const AdminLogin = () => {
   const [form, setForm] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
+  const { loginAdmin } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await login(form);
+      await loginAdmin(form);
+      toast.success("Welcome, Admin!");
       navigate("/dashboard");
     } catch (err) {
-      toast.warning(err.response?.data?.message || err.message);
+      toast.error(err.response?.data?.message || err.message);
     }
   };
 
@@ -62,7 +63,7 @@ const Login = () => {
                     alt="logo"
                   />
                   <h4 className="mb-12 mt-1 pb-1 font-semibold text-2xl text-gray-800  text-center">
-                    Login to Your Account
+                    Admin Login
                   </h4>
                 </div>
 
@@ -96,14 +97,13 @@ const Login = () => {
                     >
                       Login
                     </button>
+                     <p className="text-center text-gray-500 text-sm mt-6">
 
-                    <p className="text-center text-gray-500 text-sm mt-6">
-                      Don’t have an account?{" "}
                       <Link
                         className="text-blue-600 hover:underline"
-                        to="/register"
+                        to="/login"
                       >
-                        Register now
+                        Student Login ?
                       </Link>
                     </p>
                   </div>
@@ -117,4 +117,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AdminLogin;

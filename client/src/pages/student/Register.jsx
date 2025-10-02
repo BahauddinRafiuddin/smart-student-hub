@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { toast } from 'react-toastify';
 import { useNavigate, Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext.jsx";
-import LoginImg from "../assets/Login.png";
+import { useAuth } from "../../context/AuthContext.jsx";
+import LoginImg from "../../assets/Login.png";
 
 const Register = () => {
   const { register } = useAuth();
@@ -48,7 +48,7 @@ const Register = () => {
                 <div className="text-center mb-2">
                   <img className="mx-auto w-48" style={{width:"150px" }} src={LoginImg} alt="logo" />
                   <h4 className="mb-6 mt-1 pb-1 font-semibold text-2xl text-gray-800  text-center">
-                    Register Your New Account
+                    Student Register
                   </h4>
                 </div>
                 <form onSubmit={handleSubmit}>
