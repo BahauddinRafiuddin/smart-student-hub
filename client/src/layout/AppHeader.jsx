@@ -5,6 +5,7 @@ import { useSidebar } from "../context/SidebarContext";
 import { ThemeToggleButton } from "../components/common/ThemeToggleButton";
 import NotificationDropdown from "../components/header/NotificationDropdown";
 import UserDropdown from "../components/header/UserDropdown";
+import logo from "../../public/logo.png";
 
 const AppHeader = () => {
   const [isApplicationMenuOpen, setApplicationMenuOpen] = useState(false);
@@ -83,17 +84,21 @@ const AppHeader = () => {
             {/* Cross Icon */}
           </button>
 
-          <Link to="/" className="lg:hidden">
-            <img
+          <Link to="/" className="lg:hidden text-blue-700 text-semibold text-xl">
+            SSH
+            {/* <img
               className="dark:hidden"
-              src="./images/logo/logo.svg"
+              src={logo}
+               width={60}
               alt="Logo"
             />
             <img
               className="hidden dark:block"
-              src="./images/logo/logo-dark.svg"
+              src={logo}
+              width={50}
+            
               alt="Logo"
-            />
+            /> */}
           </Link>
 
           <button

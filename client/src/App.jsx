@@ -9,6 +9,7 @@ import DashboardLayout from "./layout/AppLayout.jsx";
 // Import existing pages
 import Login from "./pages/student/Login.jsx";
 import Register from "./pages/student/Register";
+import ForgotPassword from "./pages/ForgotPassword.jsx";
 import AdminLogin from "./pages/admin/AdminLogin";
 
 // Existing pages that will be used in dashboard (OLD)
@@ -50,6 +51,7 @@ function App() {
         {/* Auth Routes (without sidebar) */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/admin/login" element={<AdminLogin />} />
 
         {/* Dashboard Routes (with sidebar) */}

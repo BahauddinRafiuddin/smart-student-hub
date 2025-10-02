@@ -2,6 +2,7 @@ import { useState } from "react";
 import { toast } from 'react-toastify';
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
+import AuthLeftAside from "../../components/common/AuthLeftAside.jsx";
 import LoginImg from "../../assets/Login.png";
 
 const Login = () => {
@@ -25,32 +26,7 @@ const Login = () => {
         <div className="  block rounded-lg bg-white shadow-lg dark:bg-neutral-800">
           <div className="min-h-screen g-0 lg:flex lg:flex-wrap">
             {/* left side */}
-            <div className="hidden lg:flex bg-blue-700 items-center rounded-b-lg lg:w-6/12 lg:rounded-e-lg lg:rounded-bl-none">
-              <div className=" py-6 text-white md:mx-6 md:p-12">
-                <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
-                  className="w-full"
-                  alt="Sample image"
-                />
-                {/* <!-- <h4 className="text-white text-center text-5xl font-bold mt-12 ">
-                                Smart Student 
-                                <br/>Hub
-                            </h4>
-                            <p className="text-white text-md ml-3 mt-6">
-                                Empowering students and faculty with a unified platform to track, manage, and showcase
-                                academic
-                                and extracurricular activities. Generate portfolios, approve submissions, and gain
-                                actionable insights
-                                all in one place.
-                                <br />
-                                <br />
-                                • Submit & track activities<br />
-                                • Download personalized portfolios<br />
-                                • Faculty review and approve entries<br />
-                                • Admin management & reporting
-                            </p> --> */}
-              </div>
-            </div>
+            <AuthLeftAside/>
 
             {/* right side */}
             <div className="flex items-center justify-center min-h-screen bg-white px-4 md:px-0 lg:w-6/12">
@@ -75,6 +51,7 @@ const Login = () => {
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       placeholder="you@example.com"
                       type="email"
+                      value={form.email}
                     />
                   </div>
 
@@ -86,6 +63,7 @@ const Login = () => {
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       placeholder="••••••••"
                       type="password"
+                      value={form.password}
                     />
                   </div>
 

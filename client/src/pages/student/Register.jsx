@@ -2,6 +2,7 @@ import { useState } from "react";
 import { toast } from 'react-toastify';
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
+import AuthLeftAside from "../../components/common/AuthLeftAside.jsx";
 import LoginImg from "../../assets/Login.png";
 
 const Register = () => {
@@ -32,15 +33,7 @@ const Register = () => {
         <div className="  block rounded-lg bg-white shadow-lg dark:bg-neutral-800">
           <div className="min-h-screen g-0 lg:flex lg:flex-wrap">
             {/* left side */}
-            <div className="hidden lg:flex bg-blue-700 items-center rounded-b-lg lg:w-6/12 lg:rounded-e-lg lg:rounded-bl-none">
-              <div className=" py-6 text-white md:mx-6 md:p-12">
-                <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
-                  className="w-full"
-                  alt="Sample image"
-                />
-              </div>
-            </div>
+            <AuthLeftAside/>
 
             {/* right side */}
             <div className="flex items-center justify-center min-h-screen bg-white px-4 md:px-4 lg:w-6/12">

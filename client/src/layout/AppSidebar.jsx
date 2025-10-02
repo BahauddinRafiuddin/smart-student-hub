@@ -286,7 +286,7 @@ const AppSidebar = () => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div
-        className={`py-8 flex justify-center`}
+        className={`py-4 flex justify-center`}
       >
         {/* aide logo and header */}
         <Link to="/">
@@ -297,8 +297,8 @@ const AppSidebar = () => {
                 className="dark:hidden"
                 src={logo}
                 alt="Logo"
-                width={150}
-                height={40}
+                width={100}
+                height={30}
               />
               <img
                 className="hidden dark:block"
@@ -321,7 +321,7 @@ const AppSidebar = () => {
 
       <div className="flex flex-col overflow-y-auto duration-300 ease-linear no-scrollbar">
         <nav className="mb-6">
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-1">
             <div>
               <h2
                 className={`mb-4 text-xs uppercase flex leading-[20px] text-gray-400 ${
