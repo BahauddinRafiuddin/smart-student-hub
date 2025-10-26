@@ -13,11 +13,9 @@ const tableSchema = new mongoose.Schema(
 const roleSchema = new mongoose.Schema(
   {
     role_name: {
-      type: {
         type: String,
         required: true,
       },
-    },
   },
   { timestamps: true }
 );
@@ -50,9 +48,9 @@ const permissionSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Table = mongoose.model("Table", tableSchema);
-const Role = mongoose.model("Role", roleSchema);
-const Permission = mongoose.model("Permission", permissionSchema);
+const Table = mongoose.model("Tables", tableSchema);
+const Role = mongoose.model("Roles", roleSchema);
+const Permission = mongoose.model("Permissions", permissionSchema);
 
 export {
     Table,

@@ -41,4 +41,4 @@ const academicRecordSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("AcademicRecord",academicRecordSchema);
+export default mongoose.model("AcademicRecords",academicRecordSchema);

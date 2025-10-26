@@ -131,6 +131,7 @@ const employeeSchema = new mongoose.Schema({
 
 //staff
 const staffSchema = new mongoose.Schema({
+  ...employeeSchema.obj,
   shift: {
     type: String,
     enum: staffShift,
@@ -141,9 +142,10 @@ const staffSchema = new mongoose.Schema({
 
 //faculty
 const facultySchema = new mongoose.Schema({
+  ...employeeSchema.obj,
   office_number: {
     type: String,
-    required,
+    required:true,
   },
   specialization: {
     type: String,
@@ -162,10 +164,19 @@ personSchema.methods.getFullName = function () {
   return `${this.first_name} ${this.middle_name} ${this.last_name}`;
 };
 
-const Person = mongoose.model("Person", personSchema);
-const Student = Person.discriminator("Student", studentSchema);
-const Employee = Person.discriminator("Employee", employeeSchema);
-const Staff = Employee.discriminator("Staff", staffSchema);
-const Faculty = Employee.discriminator("Faculty", facultySchema);
+personSchema.methods.isValidPassword = async function(password){
+  try{
+    return await bcrypt.compare(password,this.hash_password);
+  }catch(error){
+    console.log("something want wrong when authenticate the password");
+    return false;
+  }
+}
+
+const Person = mongoose.model("Persons", personSchema);
+const Student = Person.discriminator("Students", studentSchema);
+const Employee = Person.discriminator("Employees", employeeSchema);
+const Staff = Person.discriminator("Staffs", staffSchema);
+const Faculty = Person.discriminator("Facultys", facultySchema);
 
 export { Person, Student, Employee, Staff, Faculty };
