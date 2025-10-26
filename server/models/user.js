@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 //options
 const options = {
@@ -12,7 +13,7 @@ const employeeTypeEnum = ["full time", "part time", "contract"];
 const employeeStatus = ["active", "inactive", "on leave"];
 const staffShift = ["monring", "afternoon"];
 
-//person 
+//person
 const personSchema = new mongoose.Schema(
   {
     contac_id: {
@@ -67,6 +68,9 @@ const studentSchema = mongoose.Schema({
   enrollment_no: {
     type: String,
     required: true,
+    minLength: 10,
+    trim: true,
+    unique: true,
   },
   enrollment_date: {
     type: mongoose.Schema.Types.Date,
@@ -90,7 +94,7 @@ const studentSchema = mongoose.Schema({
 const employeeSchema = new mongoose.Schema({
   department_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref:"Department",
+    ref: "Department",
     required: true,
   },
   designation: {
@@ -126,7 +130,7 @@ const employeeSchema = new mongoose.Schema({
 });
 
 //staff
-const staffSchema = new mognoose.Schema({
+const staffSchema = new mongoose.Schema({
   shift: {
     type: String,
     enum: staffShift,
@@ -145,6 +149,18 @@ const facultySchema = new mongoose.Schema({
     type: String,
   },
 });
+
+//functions
+personSchema.pre("save", async function (next) {
+  if (!this.isModified("hash_password")) next();
+
+  this.hash_password = await bcrypt.hash(this.hash_password, 10);
+  next();
+});
+
+personSchema.methods.getFullName = function () {
+  return `${this.first_name} ${this.middle_name} ${this.last_name}`;
+};
 
 const Person = mongoose.model("Person", personSchema);
 const Student = Person.discriminator("Student", studentSchema);
