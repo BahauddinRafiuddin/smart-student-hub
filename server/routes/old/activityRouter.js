@@ -1,7 +1,7 @@
 import express from 'express';
 import authRouter from './authRouter.js';
 import { createActivity, deleteActivity, getActivityById, getMyActivities, updateActivity } from '../controllers/activityController.js';
-import { authorize, authUser } from '../middlewares/authUser.js';
+import { authorize, authUser } from '../../middlewares/old/authUser.js';
 
 const activityRouter = express.Router()
 

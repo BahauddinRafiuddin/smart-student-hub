@@ -1,6 +1,6 @@
 import express, { Router } from 'express'
 import { adminLogin, approveActivity, getAllActivity, rejectActivity } from '../controllers/adminController.js';
-import { authAdmin, authorizeAdmin } from '../middlewares/authAdmin.js';
+import { authAdmin, authorizeAdmin } from '../../middlewares/old/authAdmin.js';
 
 const adminRouter=express.Router();
 
