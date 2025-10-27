@@ -24,12 +24,12 @@ const permissionSchema = new mongoose.Schema(
   {
     role_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Role",
+      ref: "Roles",
       required: true,
     },
     table_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Table",
+      ref: "Tables",
       required: true,
     },
     can_read: {
@@ -48,12 +48,12 @@ const permissionSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Table = mongoose.model("Tables", tableSchema);
-const Role = mongoose.model("Roles", roleSchema);
-const Permission = mongoose.model("Permissions", permissionSchema);
+const Tables = mongoose.model("Tables", tableSchema);
+const Roles = mongoose.model("Roles", roleSchema);
+const Permissions = mongoose.model("Permissions", permissionSchema);
 
 export {
-    Table,
-    Role,
-    Permission
+    Tables,
+    Roles,
+    Permissions
 }

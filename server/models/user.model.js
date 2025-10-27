@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+import JWT from "jsonwebtoken";
 
 //options
 const options = {
@@ -9,22 +10,31 @@ const options = {
 };
 
 //enums
-const employeeTypeEnum = ["full time", "part time", "contract"];
+const employeeTypeEnum = ["full-time", "part-time", "contract"];
 const employeeStatus = ["active", "inactive", "on leave"];
-const staffShift = ["monring", "afternoon"];
+const staffShift = ["morning", "afternoon"];
 
 //person
 const personSchema = new mongoose.Schema(
   {
-    contac_id: {
+    address_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Contact",
-      required: true,
+      ref: "Addresses",
     },
     role_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Role",
+      ref: "Roles",
       required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    phone: {
+      type: String,
+      required: true,
+      unique: true,
     },
     first_name: {
       type: String,
@@ -145,7 +155,7 @@ const facultySchema = new mongoose.Schema({
   ...employeeSchema.obj,
   office_number: {
     type: String,
-    required:true,
+    required: true,
   },
   specialization: {
     type: String,
@@ -164,19 +174,33 @@ personSchema.methods.getFullName = function () {
   return `${this.first_name} ${this.middle_name} ${this.last_name}`;
 };
 
-personSchema.methods.isValidPassword = async function(password){
-  try{
-    return await bcrypt.compare(password,this.hash_password);
-  }catch(error){
+personSchema.methods.isValidPassword = async function (password) {
+  try {
+    let isCorrect = await bcrypt.compare(password, this.hash_password);
+    return isCorrect;
+  } catch (error) {
     console.log("something want wrong when authenticate the password");
     return false;
   }
-}
+};
 
-const Person = mongoose.model("Persons", personSchema);
-const Student = Person.discriminator("Students", studentSchema);
-const Employee = Person.discriminator("Employees", employeeSchema);
-const Staff = Person.discriminator("Staffs", staffSchema);
-const Faculty = Person.discriminator("Facultys", facultySchema);
+personSchema.methods.createJWT = function () {
+  return JWT.sign(
+    {
+      id: this._id,
+      email: this.email,
+    },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: "1d",
+    }
+  );
+};
 
-export { Person, Student, Employee, Staff, Faculty };
+const Persons = mongoose.model("Persons", personSchema);
+const Students = Persons.discriminator("Students", studentSchema);
+const Employees = Persons.discriminator("Employees", employeeSchema);
+const Staffs = Persons.discriminator("Staffs", staffSchema);
+const Facultys = Persons.discriminator("Facultys", facultySchema);
+
+export { Persons, Students, Employees, Staffs, Facultys };

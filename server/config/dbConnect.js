@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { RoleModel, TableModel } from "../models/index.model.js";
+import { RoleModel, TableModel } from "../models/index.js";
 
 const connectDatabase = async (params) => {
   try {

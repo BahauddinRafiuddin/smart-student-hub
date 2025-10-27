@@ -12,7 +12,6 @@ const departmentSchema = new mongoose.Schema({
     head_of_department:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User",
-        required:true
     }
 });
 
