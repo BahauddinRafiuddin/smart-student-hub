@@ -38,7 +38,7 @@ const Login = () => {
                     alt="logo"
                   />
                   <h4 className="mb-12 mt-1 pb-1 font-semibold text-2xl text-gray-800  text-center">
-                    Student Login
+                    Login
                   </h4>
                 </div>
 
@@ -84,15 +84,7 @@ const Login = () => {
                         Register now
                       </Link>
                     </p>
-                    <p className="text-center text-gray-500 text-sm mt-2">
-
-                      <Link
-                        className="text-blue-600 hover:underline"
-                        to="/admin/login"
-                      >
-                        Admin Login ?
-                      </Link>
-                    </p>
+              
                   </div>
                 </form>
               </div>

@@ -10,7 +10,6 @@ import DashboardLayout from "./layout/AppLayout.jsx";
 import Login from "./pages/student/Login.jsx";
 import Register from "./pages/student/Register";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
-import AdminLogin from "./pages/admin/AdminLogin";
 
 // Existing pages that will be used in dashboard (OLD)
 import Dashboard from "./pages/Dashboard";
@@ -52,7 +51,6 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
 
         {/* Dashboard Routes (with sidebar) */}
         <Route path="/dashboard" element={
@@ -62,24 +60,8 @@ function App() {
         }>
           <Route index element={()=><h1>Working</h1>} />
           
-          {/* Student/Faculty Routes */}
-          {/* <Route path="my-activities" element={<Activities />} />
-          <Route path="add-activity" element={<AddActivity />} />
-          <Route path="activity/:id/edit" element={<EditActivity />} />
-          <Route path="portfolio" element={<Portfolio/>}/>
-           */}
-          {/* Admin Routes */}
-          {/* <Route path="activities" element={<AdminDashboard />} />
-          <Route path="reports" element={<div className="p-6"><h1 className="text-2xl">Reports Coming Soon</h1></div>} />
-          <Route path="users" element={<div className="p-6"><h1 className="text-2xl">User Management Coming Soon</h1></div>} />
-          <Route path="settings" element={<div className="p-6"><h1 className="text-2xl">Settings Coming Soon</h1></div>} /> */}
-          
-          {/* Placeholder routes for future pages */}
-           {/* <Route path="portfolio" element={<div className="p-6"><h1 className="text-2xl">Portfolio Coming Soon</h1></div>} />
-          <Route path="student-activities" element={<div className="p-6"><h1 className="text-2xl">Student Activities Coming Soon</h1></div>} /> */}
-        </Route> 
+          </Route> 
 
-        {/* Redirect root to dashboard */}
         <Route path="/" element={<Navigate to="/dashboard" />} />
       </Routes>
     </>

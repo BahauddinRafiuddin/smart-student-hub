@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
 import AuthLeftAside from "../../components/common/AuthLeftAside.jsx";
@@ -9,14 +9,31 @@ const Register = () => {
   const { register } = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({
-    name: "",
+    first_name: "",
+    middle_name: "",
+    last_name: "",
+    Birth_date: "",
     email: "",
+    phone: "",
     password: "",
-    role: "student",
-    rollNo: "",
-    course: "",
-    year: "",
+    role_id:"68ff36bf65fc8571d8e54664"
   });
+
+  const handleForm = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "phone" && value !== "" && !/^\d+$/.test(value)) return;
+    else if (
+      (name === "first_name" ||
+        name === "middle_name" ||
+        name === "last_name") &&
+      value !== "" &&
+      !/^[A-Za-z\s]+$/.test(value)
+    )
+      return;
+
+    setForm({ ...form, [name]: value.trimStart() });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,44 +50,77 @@ const Register = () => {
         <div className="  block rounded-lg bg-white shadow-lg dark:bg-neutral-800">
           <div className="min-h-screen g-0 lg:flex lg:flex-wrap">
             {/* left side */}
-            <AuthLeftAside/>
+            <AuthLeftAside />
 
             {/* right side */}
             <div className="flex items-center justify-center min-h-screen bg-white px-4 md:px-4 lg:w-6/12">
               <div className="w-full md:mx-4 md:p-2">
                 <div className="text-center mb-2">
-                  <img className="mx-auto w-48" style={{width:"150px" }} src={LoginImg} alt="logo" />
+                  <img
+                    className="mx-auto w-48"
+                    style={{ width: "150px" }}
+                    src={LoginImg}
+                    alt="logo"
+                  />
                   <h4 className="mb-6 mt-1 pb-1 font-semibold text-2xl text-gray-800  text-center">
-                    Student Register
+                  Register
                   </h4>
                 </div>
                 <form onSubmit={handleSubmit}>
+                  <div className="grid grid-cols-1 md:grid-cols-2 md:gap-3">
+                    {[
+                      { label: "First Name", name: "first_name", type: "text",placeholder:"romon" },
+                      {
+                        label: "Middle Name",
+                        name: "middle_name",
+                        type: "text",
+                        placeholder:"basle"
+                      },
+                    ].map(({ label, name, type,placeholder }, key) => (
+                      <div
+                        key={key}
+                        className="relative mb-4"
+                        data-twe-input-wrapper-init
+                      >
+                        <label className="block text-gray-700 mb-1">
+                          {label}
+                        </label>
+                        <input
+                          type={type}
+                          name={name}
+                          value={form[name]}
+                          onChange={handleForm}
+                          placeholder={placeholder}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          required={true}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                
+                  {/* ------without grid---------- */}
                   {[
-                    { label: "Name", name: "name", type: "text" },
-                    { label: "Email", name: "email", type: "email" },
-                    { label: "Password", name: "password", type: "password" },
-                    { label: "Roll No", name: "rollNo", type: "text" },
-                    { label: "Course", name: "course", type: "text" },
-                    { label: "Year", name: "year", type: "number" },
-                  ].map(({ label, name, type }) => (
-                    <div className="relative mb-4" data-twe-input-wrapper-init>
+                     { label: "Last Name", name: "last_name", type: "text" , placeholder:"joy"},
+                    { label: "Email", name: "email", type: "email" , placeholder:"example@gmail.com"},
+                    { label: "Phone", name: "phone", type: "text" , placeholder:"0000000000"},
+                    { label: "Password", name: "password", type: "password", placeholder:"••••••••" },
+                  ].map(({ label, name, type,placeholder }, key) => (
+                    <div
+                      key={key}
+                      className="relative mb-4"
+                      data-twe-input-wrapper-init
+                    >
                       <label className="block text-gray-700 mb-1">
                         {label}
                       </label>
                       <input
                         type={type}
+                        name={name}
                         value={form[name]}
-                        onChange={(e) =>
-                          setForm({ ...form, [name]: e.target.value })
-                        }
+                        onChange={handleForm}
+                        placeholder={placeholder}
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        required={
-                          name !== "rollNo" &&
-                          name !== "course" &&
-                          name !== "year"
-                            ? true
-                            : false
-                        }
+                        required={true}
                       />
                     </div>
                   ))}
