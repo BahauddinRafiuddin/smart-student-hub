@@ -1,8 +1,10 @@
 import express from "express";
-import {createDepartment} from "../controllers/index.js";
+import {createDepartment, getDepartment, getAllDepartment, updateDepartmnet, deleteDepartment} from "../controllers/index.js";
 
 const route = express.Router();
 
-route.post("/create",createDepartment);
+route.post("/",createDepartment);
+route.get("/",getAllDepartment);
+route.route("/:id").get(getDepartment).put(updateDepartmnet).delete(deleteDepartment);
 
 export default route;

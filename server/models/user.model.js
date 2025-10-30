@@ -51,11 +51,9 @@ const personSchema = new mongoose.Schema(
     gender: {
       type: String,
       enum: ["male", "female"],
-      required: true,
     },
     Birth_date: {
       type: mongoose.Schema.Types.Date,
-      required: true,
     },
     profile_image: {
       type: String,
@@ -179,7 +177,6 @@ personSchema.methods.isValidPassword = async function (password) {
     let isCorrect = await bcrypt.compare(password, this.hash_password);
     return isCorrect;
   } catch (error) {
-    console.log("something want wrong when authenticate the password");
     return false;
   }
 };

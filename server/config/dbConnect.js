@@ -4,12 +4,26 @@ import { RoleModel, TableModel } from "../models/index.js";
 const connectDatabase = async (params) => {
   try {
     mongoose.connection.on("connected", () =>
-      console.log("Database Is Connected")
+      console.log("✅ Database Is Connected")
     );
+
+    mongoose.connection.on("disconnected", () => {
+      console.log("⚠️ mongoDB Database Disconnected.");
+    });
+
+    mongoose.connection.on("reconnected", () => {
+      console.log("🔄 mongoDB Database reconnected.");
+    });
+
+    mongoose.connection.on("error", (error) => {
+      console.log("❌ mongoDB Database connection failed.", error.message);
+    });
+
     await mongoose.connect(`${process.env.MONGODB_URL}/studentHub`);
-    preEntries();
+    preEntries(); // pre databse entry
   } catch (error) {
-    console.log(error);
+    console.log("❌ mongoDB Database connection failed.", error.message);
+    process.exit(1);
   }
 };
 
@@ -23,9 +37,9 @@ async function preEntries() {
         await RoleModel.create({
           role_name: name,
         });
-      } 
+      }
     }
-    
+
     const tables = [
       "Addresses",
       "Contacts",
@@ -41,7 +55,7 @@ async function preEntries() {
       "Departments",
       "Courses",
     ];
-    
+
     for (const name of tables) {
       const isExisting = await TableModel.findOne({ table_name: name });
 
@@ -53,7 +67,7 @@ async function preEntries() {
     }
 
     console.log("preEntries Done..!");
-  } catch(error) {
+  } catch (error) {
     console.log("Something wrong with preEntries....");
     console.log(error.message);
   }
