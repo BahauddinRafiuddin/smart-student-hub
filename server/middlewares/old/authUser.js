@@ -7,7 +7,7 @@ export const authUser = asyncHandler(async (req, res, next) => {
   if (!token) {
     return res
       .status(401)
-      .json({ success: false, message: "Unauthorized: No token provided" });
+      .json({ success: false, message: "Login to Access this Resouse" });
   }
 
   const decoded = jwt.verify(token, process.env.JWT_SECRET);

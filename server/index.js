@@ -3,9 +3,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import connectDatabase from "./config/dbConnect.js";
 import cors from "cors";
-import { authRoute } from "./routes/index.js";
-import { courseRoute } from "./routes/index.js";
-import { departmentRoute } from "./routes/index.js";
+import { authRoute, courseRoute, departmentRoute, permissionRoute } from "./routes/index.js";
 import { errorHandler } from "./middlewares/index.js";
 
 dotenv.config();
@@ -25,10 +23,12 @@ await connectDatabase();
 app.get("/get", (req, res) => {
   res.status(200).json("wokring good");
 });
+
 //endpoint
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/course", courseRoute);
 app.use("/api/v1/department", departmentRoute);
+app.use("/api/v1/access", permissionRoute);
 
 // global Error handle middleware
 app.use(errorHandler);

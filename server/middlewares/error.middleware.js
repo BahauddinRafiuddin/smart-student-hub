@@ -9,7 +9,7 @@ const errorHandler = (err, req, res, next) => {
   //duplicate key
   if(err.code === 11000){
     const field = Object.keys(err.keyValue);
-    err = new ErrorResponse(400,"Duplicate value for Field: ${field}");
+    err = new ErrorResponse(400,`Duplicate value for Field: ${field}`);
   }
 
   //Validation error
