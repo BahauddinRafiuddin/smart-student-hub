@@ -1,30 +1,50 @@
 import express from "express";
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 import connectDatabase from "./config/dbConnect.js";
-import cors from 'cors';
-import authRouter from "./routes/authRouter.js";
-import activityRouter from "./routes/activityRouter.js";
-import adminRouter from "./routes/adminRouter.js";
+import cors from "cors";
+import { authRoute, courseRoute, departmentRoute, permissionRoute } from "./routes/index.js";
+import { errorHandler } from "./middlewares/index.js";
 
-dotenv.config()
-const app = express()
-const port = process.env.PORT || 4000
+dotenv.config();
+const app = express();
+const port = process.env.PORT || 4000;
 
-app.use(express.json())
-app.use(cors());
+app.use(express.json());
+app.use(cookieParser());
+app.use(cors({
+  origin: "http://localhost:5173", // frontend URL
+  credentials: true,   
+}));
 
 // Database Connection Function Call
 await connectDatabase();
 
-app.get('/', (req, res) => {
-    res.send("API Working...");
-})
+app.get("/get", (req, res) => {
+  res.status(200).json("wokring good");
+});
 
-// Different Routes
-app.use('/api/auth',authRouter)
-app.use('/api/activities',activityRouter)
-app.use('/api/admin',adminRouter)
+//endpoint
+app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/course", courseRoute);
+app.use("/api/v1/department", departmentRoute);
+app.use("/api/v1/access", permissionRoute);
+
+// global Error handle middleware
+app.use(errorHandler);
+
+//handle uncaught Errors
+process.on("uncaughtException",(err)=>{
+  console.error("Uncaught Exception: ",err);
+  process.exit(1);
+});
+
+//handle unhandled Errors
+process.on("unhandledRejection",(err)=>{
+  console.error("unhandled Promise Rejection: ",err);
+  process.exit(1);
+});
 
 app.listen(port, (req, res) => {
-    console.log(`Server running on http://localhost:${port}`);
-})
+  console.log(`Server running on http://localhost:${port}`);
+});
